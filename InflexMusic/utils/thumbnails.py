@@ -198,7 +198,7 @@ async def get_thumb(videoid: str):
 
 
         circle_thumbnail = crop_center_octagon(youtube, 400, 20, start_gradient_color)
-        circle_thumbnail = circle_thumbnail.resize((400, 400))
+        circle_thumbnail = circle_thumbnail = crop_center_octagon(youtube, 400, 20, start_gradient_color
         circle_position = (120, 160)
         background.paste(circle_thumbnail, circle_position, circle_thumbnail)
 
