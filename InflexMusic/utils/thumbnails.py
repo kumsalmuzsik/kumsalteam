@@ -53,7 +53,7 @@ def add_border(image, border_width, border_color):
     new_image.paste(image, (border_width, border_width))
     return new_image
 
-def crop_center_circle(img, output_size, border, border_color, crop_scale=1.5):
+def crop_center_octagon(img, output_size, border, border_color, crop_scale=1.5):
     half_the_width = img.size[0] / 2
     half_the_height = img.size[1] / 2
     larger_size = int(output_size * crop_scale)
@@ -74,14 +74,28 @@ def crop_center_circle(img, output_size, border, border_color, crop_scale=1.5):
     
     mask_main = Image.new("L", (output_size - 2*border, output_size - 2*border), 0)
     draw_main = ImageDraw.Draw(mask_main)
-    draw_main.ellipse((0, 0, output_size - 2*border, output_size - 2*border), fill=255)
+
+    # Calculate the coordinates for an octagon
+    octagon_coords = [
+        (output_size/2, border),
+        (output_size - border, output_size/2 - border),
+        (output_size - border, output_size - border),
+        (output_size/2, output_size - border*2),
+        (border, output_size - border),
+        (border, output_size/2 - border),
+        (output_size/2, border*2),
+        (output_size - border*2, output_size/2),
+    ]
     
+    draw_main.polygon(octagon_coords, fill=255)
+    
+    # Paste the image using the octagon mask
     final_img.paste(img, (border, border), mask_main)
     
     
     mask_border = Image.new("L", (output_size, output_size), 0)
     draw_border = ImageDraw.Draw(mask_border)
-    draw_border.ellipse((0, 0, output_size, output_size), fill=255)
+    draw_border.polygon(octagon_coords, fill=255)
     
     result = Image.composite(final_img, Image.new("RGBA", final_img.size, (0, 0, 0, 0)), mask_border)
     
@@ -183,7 +197,7 @@ async def get_thumb(videoid: str):
         title_font = ImageFont.truetype("InflexMusic/assets/font3.ttf", 45)
 
 
-        circle_thumbnail = crop_center_circle(youtube, 400, 20, start_gradient_color)
+        circle_thumbnail = crop_center_octagon(youtube, 400, 20, start_gradient_color)
         circle_thumbnail = circle_thumbnail.resize((400, 400))
         circle_position = (120, 160)
         background.paste(circle_thumbnail, circle_position, circle_thumbnail)
