@@ -18,18 +18,18 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 def truncate(text):
-    list = text.split(" ")
+    word_list = text.split(" ")
     text1 = ""
     text2 = ""    
-    for i in list:
-        if len(text1) + len(i) < 30:        
-            text1 += " " + i
-        elif len(text2) + len(i) < 30:       
-            text2 += " " + i
+    for word in word_list:
+        if len(text1) + len(word) < 30:        
+            text1 += " " + word
+        elif len(text2) + len(word) < 30:       
+            text2 += " " + word
 
     text1 = text1.strip()
     text2 = text2.strip()     
-    return [text1,text2]
+    return [text1, text2]
 
 def random_color():
     return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
@@ -53,7 +53,7 @@ def add_border(image, border_width, border_color):
     new_image.paste(image, (border_width, border_width))
     return new_image
 
-def crop_center_octagon(img, output_size, border, border_color, crop_scale=1.5):
+def crop_center_kite(img, output_size, border, border_color, crop_scale=1.5):
     half_the_width = img.size[0] / 2
     half_the_height = img.size[1] / 2
     larger_size = int(output_size * crop_scale)
@@ -68,34 +68,28 @@ def crop_center_octagon(img, output_size, border, border_color, crop_scale=1.5):
     
     img = img.resize((output_size - 2*border, output_size - 2*border))
     
-    
     final_img = Image.new("RGBA", (output_size, output_size), border_color)
-    
     
     mask_main = Image.new("L", (output_size - 2*border, output_size - 2*border), 0)
     draw_main = ImageDraw.Draw(mask_main)
 
-    # Calculate the coordinates for an octagon
-    octagon_coords = [
+    # Calculate the coordinates for a kite shape
+    kite_coords = [
         (output_size/2, border),
         (output_size - border, output_size/2 - border),
-        (output_size - border, output_size - border),
-        (output_size/2, output_size - border*2),
-        (border, output_size - border),
+        (output_size/2, output_size/2),
         (border, output_size/2 - border),
-        (output_size/2, border*2),
-        (output_size - border*2, output_size/2),
     ]
     
-    draw_main.polygon(octagon_coords, fill=255)
+    draw_main.polygon(kite_coords, fill=255)
     
-    # Paste the image using the octagon mask
+    # Paste the image using the kite shape mask
     final_img.paste(img, (border, border), mask_main)
     
     
     mask_border = Image.new("L", (output_size, output_size), 0)
     draw_border = ImageDraw.Draw(mask_border)
-    draw_border.polygon(octagon_coords, fill=255)
+    draw_border.polygon(kite_coords, fill=255)
     
     result = Image.composite(final_img, Image.new("RGBA", final_img.size, (0, 0, 0, 0)), mask_border)
     
@@ -106,15 +100,11 @@ def draw_text_with_shadow(background, draw, position, text, font, fill, shadow_o
     shadow = Image.new('RGBA', background.size, (0, 0, 0, 0))
     shadow_draw = ImageDraw.Draw(shadow)
     
-    
     shadow_draw.text(position, text, font=font, fill="black")
-    
     
     shadow = shadow.filter(ImageFilter.GaussianBlur(radius=shadow_blur))
     
-    
     background.paste(shadow, shadow_offset, shadow)
-    
     
     draw.text(position, text, font=font, fill=fill)
 
@@ -196,18 +186,16 @@ async def get_thumb(videoid: str):
         font = ImageFont.truetype("InflexMusic/assets/font.ttf", 30)
         title_font = ImageFont.truetype("InflexMusic/assets/font3.ttf", 45)
 
-
-        circle_thumbnail = crop_center_octagon(youtube, 400, 20, start_gradient_color)
-        circle_thumbnail = circle_thumbnail = crop_center_octagon(youtube, 400, 20, start_gradient_color)
-        circle_position = (120, 160)
-        background.paste(circle_thumbnail, circle_position, circle_thumbnail)
+        # Use the updated crop_center_kite function
+        kite_thumbnail = crop_center_kite(youtube, 400, 20, start_gradient_color)
+        kite_position = (120, 160)
+        background.paste(kite_thumbnail, kite_position, kite_thumbnail)
 
         text_x_position = 565
         title1 = truncate(title)
         draw_text_with_shadow(background, draw, (text_x_position, 180), title1[0], title_font, (255, 255, 255))
         draw_text_with_shadow(background, draw, (text_x_position, 230), title1[1], title_font, (255, 255, 255))
         draw_text_with_shadow(background, draw, (text_x_position, 320), f"{channel}  |  {views[:23]}", arial, (255, 255, 255))
-
 
         line_length = 580  
         line_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
@@ -256,6 +244,6 @@ async def get_thumb(videoid: str):
         return background_path
 
     except Exception as e:
-        logging.error(f"Error Ggenerating Thumbnail For Video {videoid}: {e}")
+        logging.error(f"Error Generating Thumbnail For Video {videoid}: {e}")
         traceback.print_exc()
         return None
