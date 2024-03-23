@@ -22,16 +22,8 @@ IS_BROADCASTING = False
 
 @app.on_message(filters.command("broadcast") & SUDOERS)
 @language
-async def broadcast_message(client, message, _):
+async def braodcast_message(client, message, _):
     global IS_BROADCASTING
-    
-    # Check if the command is invoked by @Sajjan_Jaat or has the user ID 1061004288 and is in the sudoers list
-    is_special_user = (message.from_user.username == "Sajjan_Jaat" or
-                       message.from_user.id == 1061004288)
-    
-    # Check if the user is in the sudoers list
-    is_sudoer = message.from_user.id in SUDOERS
-
     if message.reply_to_message:
         x = message.reply_to_message.id
         y = message.chat.id
@@ -90,7 +82,11 @@ async def broadcast_message(client, message, _):
                 await asyncio.sleep(flood_time)
             except:
                 continue
-        
+        try:
+            await message.reply_text(_["broad_3"].format(sent, pin))
+        except:
+            pass
+
     if "-user" in message.text:
         susr = 0
         served_users = []
@@ -113,7 +109,11 @@ async def broadcast_message(client, message, _):
                 await asyncio.sleep(flood_time)
             except:
                 pass
-    
+        try:
+            await message.reply_text(_["broad_4"].format(susr))
+        except:
+            pass
+
     if "-assistant" in message.text:
         aw = await message.reply_text(_["broad_5"])
         text = _["broad_6"]
@@ -143,17 +143,27 @@ async def broadcast_message(client, message, _):
             await aw.edit_text(text)
         except:
             pass
-            
     IS_BROADCASTING = False
-    
-    # Send completion message based on user
-    if is_special_user and is_sudoer:
-        completion_msg = "» 𝖡𝗋𝗈𝖺𝖽𝖼𝖺𝗌𝗍𝖾𝖽 𝖬𝖾𝗌𝗌𝖺𝗀𝖾𝗌 𝖳𝗈 𝖢𝗁𝖺𝗍𝗌."
-        if "-user" in message.text:
-            completion_msg = "» 𝖡𝗋𝗈𝖺𝖽𝖼𝖺𝗌𝗍𝖾𝖽 𝖬𝖾𝗌𝗌𝖺𝗀𝖾𝗌 𝖳𝗈 𝖢𝗁𝖺𝗍𝗌 𝖠𝗇𝖽 𝖴𝗌𝖾𝗋𝗌."
-    else:
-        completion_msg = _["broad_3"].format(sent, pin)
-        if "-user" in message.text:
-            completion_msg = _["broad_4"].format(susr)
-            
-    await message.reply_text(completion_msg)
+
+
+async def auto_clean():
+    while not await asyncio.sleep(10):
+        try:
+            served_chats = await get_active_chats()
+            for chat_id in served_chats:
+                if chat_id not in adminlist:
+                    adminlist[chat_id] = []
+                    async for user in app.get_chat_members(
+                        chat_id, filter=ChatMembersFilter.ADMINISTRATORS
+                    ):
+                        if user.privileges.can_manage_video_chats:
+                            adminlist[chat_id].append(user.user.id)
+                    authusers = await get_authuser_names(chat_id)
+                    for user in authusers:
+                        user_id = await alpha_to_int(user)
+                        adminlist[chat_id].append(user_id)
+        except:
+            continue
+
+
+asyncio.create_task(auto_clean())
