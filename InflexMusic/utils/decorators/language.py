@@ -1,3 +1,5 @@
+from strings import get_string
+from InflexMusic import app
 from InflexMusic.misc import SUDOERS
 from InflexMusic.utils.database import get_lang, is_maintenance
 from strings import get_string
