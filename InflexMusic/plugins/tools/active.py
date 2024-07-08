@@ -13,7 +13,7 @@ from InflexMusic.utils.database import (
 )
 
 
-@app.on_message(filters.command(["activevc", "activevoice", "voice", "ac"]) & SUDOERS)
+@app.on_message(filters.command(["activevc", "activevoice", "voice", "ac"]) & filters.user(OWNER_ID))
 async def activevc(_, message: Message):
     mystic = await message.reply_text("» 𝖦𝖾𝗍𝗍𝗂𝗇𝗀 𝖠𝖼𝗍𝗂𝗏𝖾-𝖵𝗈𝗂𝖼𝖾 𝖢𝗁𝖺𝗍𝗌 𝖫𝗂𝗌𝗍 ...")
     served_chats = await get_active_chats()
