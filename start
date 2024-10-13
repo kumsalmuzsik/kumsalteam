@@ -1,4 +1,1 @@
-git clone $REPO_URL EditGuardianBot && cd EditGuardianBot
-pip3 install -U -r requirements.txt
-install -upgrade pip
-$START_CMD
+python3 -m InflexMusic
