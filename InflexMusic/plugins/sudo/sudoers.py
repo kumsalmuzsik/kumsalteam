@@ -10,7 +10,7 @@ from InflexMusic.utils.inline import close_markup
 from config import BANNED_USERS, OWNER_ID
 
 
-@app.on_message(filters.command(["addsudo"]) & filters.user(OWNER_ID))
+@app.on_message(filters.command(["sudoekle"]) & filters.user(OWNER_ID))
 @language
 async def useradd(client, message: Message, _):
     if not message.reply_to_message:
