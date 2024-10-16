@@ -12,7 +12,7 @@ API_ID = int(getenv("API_ID","20584104"))
 API_HASH = getenv("API_HASH","f325ee578444d70ad2d02b0673f94d3a")
 
 # Get your token from @BotFather on Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN","7445826535:AAEh1p986jgI-EaaSDZiRQnLMGEh1BV1azc")
+BOT_TOKEN = getenv("BOT_TOKEN","7164261117:AAFs8YEB0MIHpgXaNAeiAa8AgEgYrzEldnE")
 
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://kurt67143:DLArCT171SF9wRKJ@alexsoza.xpoqv.mongodb.net/?retryWrites=true&w=majority&appName=Alexsoza")
@@ -71,7 +71,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
 
 
 # Get your pyrogram v2 session from Replit
-STRING1 = getenv("STRING_SESSION", "BAGuj-4AUE6oDTLC_i2xRwar1ErMg0wz6bSesAoiVWBfI9UeuoIxz87hWorVWExPlx_FIcoq5SNtSj45SNUFPzFZhAkplD1ABo7GjEAtv-Bfr3ffNc7NbNT_xHwc9tw5Zwwo9LcRYyugTxwWNKj7XRxLWjJL2Oc6MAMVN8PdEiDqayAJj6njYemWUZ0OIEMqHLt5b0zn9gBMSbdg1Obro6hnT7p8QT04KYzN8XnZ1sUjehPpdKC4apAWoT1P6l7vLdx51IvYfb3wDDefCJutWf-oWK8bujbIFjQFwrmlWYjjW-GC_Q69SWzyvP60d0tEteKvBkoOJRD-zCL4SVFYOd3ea3JtDgAAAAHNDSwcAA")
+STRING1 = getenv("STRING_SESSION", "BAE6FqgArsjPO0POHPvXUYKiobN_8ZPb43cyxZRziCXbm5X1obHqzbJtlY57ZFGYodLNfk4XtH9xtzO-JF8tmivw3ofGOsenetSxqCjtr1nCh5xjJnDLACFYgbSLbQE2qNBKinkGE8iJGkd2kuqT8F2PVnDW7T-IGWt1y0g7UjVfxQMAI9GksZ1xbqydczjJ-WEhn88C51LFRp9DJhpkeBWJK3PXjc8UPQ1IqUcDvlKIo17wUOAL7oUj3xKO48X0xz7DrDkjMaRDbWW0-Cfg35gwKZWUvoRTx2YLtZNUs0iih_5TnuhiySzP55iGpXY5WoHzmfC0Mzj1Tes-XFhQo_vRFnANKgAAAAG9qjszAA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
@@ -102,6 +102,8 @@ YOUTUBE_IMG_URL = "https://graph.org/file/0160271dbe745b3b02366.jpg"
 SPOTIFY_ARTIST_IMG_URL = "https://graph.org/file/0160271dbe745b3b02366.jpg"
 SPOTIFY_ALBUM_IMG_URL = "https://graph.org/file/0160271dbe745b3b02366.jpg"
 SPOTIFY_PLAYLIST_IMG_URL = "https://graph.org/file/0160271dbe745b3b02366.jpg"
+
+
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
