@@ -48,8 +48,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/TeamInflex")
-SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/InflexSupport")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/kumsaldestekkanal")
+SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/GeceSohbettr")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
@@ -71,7 +71,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
 
 
 # Get your pyrogram v2 session from Replit
-STRING1 = getenv("STRING_SESSION", "BAHGTCYAIUduGaxK9qhDX6OKGc4oqBBnZc07BvNZLUkCSV8_oZ6nzuRHvVem4fWDYCbvPdvS212Bw7cDWv_63PO7o9bii_PfT4NpNQIcX1Jhj2qKI2WlhaIiIIZftWXwxC4hvEMPtIzmMxJtvKK4vYg4XwmUXoe1gtYwkf3F3ElRzNyNSzE2HDYcSCHJ5WPZgNsCA5axspWkwjqY6mwXBMS7EPVMji44VoHo4fHECoFfvA6ukJc9acdIPjyztYOAzlmGGVuGEq_yPY6Dvu97m8YHI1ttfXq2YGMTjpD1z9VxraHFiw8UnxaKLd0r-6X5kQA5o8regZlB4D7peJTVWyQMf779mwAAAAGxQGFHAA")
+STRING1 = getenv("STRING_SESSION", "BAGuj-4AUE6oDTLC_i2xRwar1ErMg0wz6bSesAoiVWBfI9UeuoIxz87hWorVWExPlx_FIcoq5SNtSj45SNUFPzFZhAkplD1ABo7GjEAtv-Bfr3ffNc7NbNT_xHwc9tw5Zwwo9LcRYyugTxwWNKj7XRxLWjJL2Oc6MAMVN8PdEiDqayAJj6njYemWUZ0OIEMqHLt5b0zn9gBMSbdg1Obro6hnT7p8QT04KYzN8XnZ1sUjehPpdKC4apAWoT1P6l7vLdx51IvYfb3wDDefCJutWf-oWK8bujbIFjQFwrmlWYjjW-GC_Q69SWzyvP60d0tEteKvBkoOJRD-zCL4SVFYOd3ea3JtDgAAAAHNDSwcAAA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
